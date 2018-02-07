@@ -13,8 +13,13 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
-   "metadata": {},
+   "execution_count": 1,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2017-12-01T02:51:42.456863Z",
+     "start_time": "2017-12-01T02:51:37.969366Z"
+    }
+   },
    "outputs": [],
    "source": [
     "#for writing to error files:\n",
