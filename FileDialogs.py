@@ -7,11 +7,18 @@ Available widgets:
     SelectFileButton
     SelectFilesButton
 example:
+Both SaveFileButton.file and SelectFileButton.file both are a string
 
     f = SaveFileButton()
     display(f)
 
-theFilePathSpecified = f.files[0]
+    theFilePathSpecified = f.file
+
+SelectFilesButton returns a list of file paths (strings) 
+    f = SelectFilesButton()
+    display(f)
+
+    listSelectedFiles = f.files
 
 Last modified: March 2018
 Author: Vanessa Newey
@@ -33,8 +40,9 @@ class SaveFileButton(widgets.Button):
         """Initialize the SelectFilesButton class."""
         super(SaveFileButton, self).__init__(*args, **kwargs)
         # Add the selected_files trait
-        self.add_traits(files=traitlets.traitlets.List())
+        self.add_traits(file=traitlets.traitlets.Unicode())
         # Create the button.
+        self.file=""
         self.description = "Save File As"
         self.icon = "square-o"
         self.style.button_color = "orange"
@@ -57,12 +65,12 @@ class SaveFileButton(widgets.Button):
         # Raise the root to the top of all windows.
         root.call('wm', 'attributes', '.', '-topmost', True)
         # List of selected fileswill be set to b.value
-        b.files = [filedialog.asksaveasfilename()]
-        if len(b.files)>0:
-            if len(b.files[0])>0:
-                b.description = "File Name Specified"
-                b.icon = "check-square-o"
-                b.style.button_color = "lightgreen"
+        result = filedialog.asksaveasfilename()
+        if len(result)>0:
+            b.file=result
+            b.description = "File Name Specified"
+            b.icon = "check-square-o"
+            b.style.button_color = "lightgreen"
 
 class SelectFileButton(widgets.Button):
     """A file widget that leverages tkinter.filedialog."""
@@ -71,8 +79,9 @@ class SelectFileButton(widgets.Button):
         """Initialize the SelectFileButton class."""
         super(SelectFileButton, self).__init__(*args, **kwargs)
         # Add the selected_files trait
-        self.add_traits(files=traitlets.traitlets.List())
+        self.add_traits(files=traitlets.traitlets.Unicode())
         # Create the button.
+        self.file=""
         self.description = "Select File"
         self.icon = "square-o"
         self.style.button_color = "orange"
@@ -95,12 +104,12 @@ class SelectFileButton(widgets.Button):
         # Raise the root to the top of all windows.
         root.call('wm', 'attributes', '.', '-topmost', True)
         # List of selected fileswill be set to b.value
-        b.files = [filedialog.askopenfilename(multiple=False)]
-        if len(b.files)>0:
-            if len(b.files[0])>0:
-                b.description = "File Selected"
-                b.icon = "check-square-o"
-                b.style.button_color = "lightgreen"
+        result = filedialog.askopenfilename(multiple=False)
+        if len(result)>0:
+            b.file = result
+            b.description = "File Selected"
+            b.icon = "check-square-o"
+            b.style.button_color = "lightgreen"
 
 class SelectFilesButton(widgets.Button):
     """A file widget that leverages tkinter.filedialog."""
